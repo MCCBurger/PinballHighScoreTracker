@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PinballHighScoreTracker</string>
+    <string name="machine_name">Machine Name</string>
+    <string name="date_played">DATE PLAYED</string>
+    <string name="name">Name</string>
+    <string name="submit_score">SUBMIT SCORE</string>
+    <string name="view_scores">VIEW SCORES</string>
+    <string name="score">Score</string>
+</resources>

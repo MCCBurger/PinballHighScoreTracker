@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "503465455352",
+    "firebase_url": "https://pinballhighscoretracker.firebaseio.com",
+    "project_id": "pinballhighscoretracker",
+    "storage_bucket": "pinballhighscoretracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503465455352:android:9a33a02acd29ad79a7150d",
+        "android_client_info": {
+          "package_name": "net.d155.pinballhighscoretracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503465455352-270f4vk188apsl6dgopl3l70auh9roop.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWLQMziwBRs9QHG1_QbVVHRclOuc4Q5JA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503465455352-270f4vk188apsl6dgopl3l70auh9roop.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
