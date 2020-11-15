@@ -1,6 +1,7 @@
 package net.d155.pinballhighscoretracker
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity() {
 
             addScore(machine,selectedDate,score,name)
 
+        }
+
+        btnViewScores.setOnClickListener {
+            startActivity(Intent(this@MainActivity,ViewScores::class.java))
         }
 
 
