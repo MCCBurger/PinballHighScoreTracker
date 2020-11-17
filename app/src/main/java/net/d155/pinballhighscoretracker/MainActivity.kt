@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         var selectedDate=""
 
+        //Enables the user to select date played from a calendar
         pckDatePlayed.setOnClickListener {
             val cal  = Calendar.getInstance()
             val year = cal.get(Calendar.YEAR)
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             dateOfPlay.show()
         }
 
+        //Uploads data to firestore database
         btnSubmit.setOnClickListener {
 
             val machine = etMachineName.text.toString()
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //adds a document in the machines collection to firestore database
     private fun addScore(machine:String, date:String, score:String, name:String){
 
         val game:MutableMap<String,Any> = HashMap()
@@ -72,9 +75,5 @@ class MainActivity : AppCompatActivity() {
         etScore.text.clear()
         etName.text.clear()
         pckDatePlayed.text ="Date Played"
-
-
-
-
     }
 }
