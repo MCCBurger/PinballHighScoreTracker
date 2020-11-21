@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
 
             val machine = etMachineName.text.toString()
-            val score = etScore.text.toString()
+            val score = etScore.text.toString().toInt()
             val name = etName.text.toString()
 
             addScore(machine,selectedDate,score,name)
@@ -54,13 +54,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     //adds a document in the machines collection to firestore database
-    private fun addScore(machine:String, date:String, score:String, name:String){
+    private fun addScore(machine:String, date:String, score:Int, name:String){
 
         val game:MutableMap<String,Any> = HashMap()
-        game["machine"] = machine
+        game["machine"] = machine.toUpperCase()
         game["date"] = date
         game["score"] = score
-        game["initials"] = name
+        game["initials"] = name.toUpperCase()
 
         db.collection("machines")
             .add(game)

@@ -10,7 +10,7 @@
         android:id="@+id/spinner"
         android:layout_width="297dp"
         android:layout_height="41dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelMachine" />
@@ -19,7 +19,7 @@
         android:id="@+id/labelMachine"
         android:layout_width="263dp"
         android:layout_height="69dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
         android:text="Choose Machine For List of High Scores:"
         android:textAlignment="center"
@@ -30,10 +30,12 @@
 
     <TextView
         android:id="@+id/tvListofScores"
-        android:layout_width="279dp"
-        android:layout_height="428dp"
+        android:layout_width="361dp"
+        android:layout_height="387dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

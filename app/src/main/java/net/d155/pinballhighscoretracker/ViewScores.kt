@@ -3,23 +3,45 @@ package net.d155.pinballhighscoretracker
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.android.synthetic.main.activity_view_scores.*
 
 class ViewScores : AppCompatActivity() {
 
     var db = FirebaseFirestore.getInstance()
+    var selectedItem =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_scores)
 
         populateSpinner()
-        //select game from list listener run display scores inside listener
-        displayScores("gameName")
+
+        //Select game from spinner
+
+        spinner?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Toast.makeText(this@ViewScores,"Nothing Selected", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedItem = parent?.getItemAtPosition(position).toString()
+                Log.d("SELECTED ITEM",selectedItem)
+                displayScores(selectedItem)
+            }
+        }
 
     }
 
@@ -53,11 +75,27 @@ class ViewScores : AppCompatActivity() {
 
     //Displays the list of high scores from the machine the user selected from the spinner
     private fun displayScores(machineName:String){
-        //query database with game name
-        //create list
-        //sort scores in descending order
-        //change textview to list
 
+        var result = StringBuffer()
+        result.append("SCORE:").append("\t\t\t\t\t\t").append("DATE:").append("\t\t\t\t\t\t").append("INITIALS:").append("\n\n")
+        db.collection("machines")
+            .whereEqualTo("machine",machineName)
+            .orderBy("score",Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { documents->
+              for(document in documents){
+                  Log.d("GET SCORES","GOT A SCORE")
+                  result!!.append(document.data?.getValue("score")).append("\t\t\t\t\t\t\t").append(document.data?.getValue("date")).append("\t\t\t\t").append(document.data?.getValue("initials")).append("\n")
+              }
+             tvListofScores.text = result
+            }
+            .addOnFailureListener {
+                Log.d("GET SCORES","FAILED TO GET SCORES")
+            }
 
     }
 }
+
+
+
+
