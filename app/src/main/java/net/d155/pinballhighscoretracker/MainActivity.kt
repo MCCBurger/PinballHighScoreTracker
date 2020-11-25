@@ -26,61 +26,21 @@ class MainActivity : AppCompatActivity() {
 
 
 // Choose authentication providers
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build(),
+            val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.PhoneBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build(),
             )
 
 // Create and launch sign-in intent
-        startActivityForResult(
-            AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build(),
-            RC_SIGN_IN)
-
-
-
-
-        var selectedDate=""
-
-        //Enables the user to select date played from a calendar
-        pckDatePlayed.setOnClickListener {
-            val cal  = Calendar.getInstance()
-            val year = cal.get(Calendar.YEAR)
-            val month = cal.get(Calendar.MONTH)
-            val day = cal.get(Calendar.DAY_OF_MONTH)
-
-            val dateOfPlay = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{ _, myear, mMonth, mday ->
-                pckDatePlayed.text = "$myear/${mMonth+1}/$mday"
-                selectedDate = "$myear/${mMonth+1}/$mday"},year,month,day)
-
-            dateOfPlay.show()
-        }
-
-        //Uploads data to firestore database
-        btnSubmit.setOnClickListener {
-
-            val machine = etMachineName.text.toString()
-            val score = etScore.text.toString().toInt()
-            val name = etName.text.toString()
-
-            addScore(machine,selectedDate,score,name)
-
-        }
-
-        btnViewScores.setOnClickListener {
-            startActivity(Intent(this@MainActivity,ViewScores::class.java))
-        }
-
-        btnSignOut.setOnClickListener {
-            AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener {
-                    recreate()
-                }
-        }
+            startActivityForResult(
+                AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setAvailableProviders(providers)
+                    .setLogo(R.drawable.ic_ball)
+                    .build(),
+                RC_SIGN_IN
+            )
 
     }
 
@@ -117,12 +77,52 @@ class MainActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
-                // ...
+
+                var selectedDate=""
+
+                //Enables the user to select date played from a calendar
+                pckDatePlayed.setOnClickListener {
+                    val cal  = Calendar.getInstance()
+                    val year = cal.get(Calendar.YEAR)
+                    val month = cal.get(Calendar.MONTH)
+                    val day = cal.get(Calendar.DAY_OF_MONTH)
+
+                    val dateOfPlay = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{ _, myear, mMonth, mday ->
+                        pckDatePlayed.text = "$myear/${mMonth+1}/$mday"
+                        selectedDate = "$myear/${mMonth+1}/$mday"},year,month,day)
+
+                    dateOfPlay.show()
+                }
+
+                //Uploads data to firestore database
+                btnSubmit.setOnClickListener {
+
+                    val machine = etMachineName.text.toString()
+                    val score = etScore.text.toString().toInt()
+                    val name = etName.text.toString()
+
+                    addScore(machine,selectedDate,score,name)
+
+                }
+
+                btnViewScores.setOnClickListener {
+                    startActivity(Intent(this@MainActivity,ViewScores::class.java))
+                }
+
+                btnSignOut.setOnClickListener {
+                    AuthUI.getInstance()
+                        .signOut(this)
+                        .addOnCompleteListener {
+                            recreate()
+                        }
+                }
+
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
+                recreate()
             }
         }
     }
